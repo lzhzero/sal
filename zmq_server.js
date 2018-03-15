@@ -17,7 +17,7 @@ responder.on('message', function(request) {
     var dataptr = em_module._malloc(strLen+1);
     em_module.stringToUTF8(raws, dataptr, strLen+1)
     em_module._run(dataptr);
-    em_module._free(dataptr); 
+    em_module._free(dataptr);
     // send reply back to client.
     responder.send(" Done");
 //    responder.send("ZF "+ s+ " Done");
