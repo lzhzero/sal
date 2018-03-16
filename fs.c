@@ -34,7 +34,7 @@ int zero_file(char *filename) {
   fstat(fd, &st);
   
   for(pos=0; pos < st.st_size; pos+=written)
-    if ((written = write(fd, buf, min(st.st_size - pos, 4096))) <= 0)
+    if ((written = write(fd, buf, min(st.st_size - pos, 32786))) <= 0)
       break;
 
   fsync(fd);
