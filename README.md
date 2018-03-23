@@ -19,3 +19,7 @@ emcc fs.c -Os -s WASM=1 -o fs.js -s EXPORTED_FUNCTIONS='["_run","_zero_file","_f
 compile zmq_client
 
 g++ zmq_client.cpp -o zmq_client -lzmq -lboost_system -lboost_chrono
+
+#Install grpc
+git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc.git
+

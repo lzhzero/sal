@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <boost/chrono.hpp>
 
 #include <grpc++/grpc++.h>
 
@@ -58,10 +59,16 @@ int main(int argc, char** argv) {
   // localhost at port 50051). We indicate that the channel isn't authenticated
   // (use of InsecureChannelCredentials()).
   FSClient fsc(grpc::CreateChannel(
-      "localhost:50051", grpc::InsecureChannelCredentials()));
-  std::string fname("zf_100k.bin");
-  std::string reply = fsc.ZeroFile(fname);
-  std::cout << "Received: " << reply << std::endl;
+      "192.168.0.2:50051", grpc::InsecureChannelCredentials()));
+  std::string exps[6]{"/mnt/mem/zf_1k.bin","/mnt/mem/zf_10k.bin","/mnt/mem/zf_100k.bin","/mnt/mem/zf_1m.bin","/mnt/mem/zf_10m.bin","ZF,/mnt/mem/100m.bin"};
 
+  for (int i = 0; i < 5; i++) {
+    boost::chrono::steady_clock::time_point start = boost::chrono::steady_clock::now();
+    std::string fname(exps[i]);
+    for (int request_nbr = 0; request_nbr != 10000; request_nbr++) {
+      std::string reply = fsc.ZeroFile(fname);
+    }
+    std::cout << exps[i]  << " time is: "<< boost::chrono::steady_clock::now()-start << std::endl;
+  }
   return 0;
 }

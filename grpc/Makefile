@@ -4,7 +4,7 @@ CXXFLAGS += -std=c++11
 
 LDFLAGS += -L/usr/local/lib `pkg-config --libs protobuf grpc++ grpc`\
 	   -Wl,--no-as-needed -lgrpc++_reflection -Wl,--as-needed\
-	   -ldl
+	   -ldl -lboost_system -lboost_chrono
 
 PROTOC = protoc
 GRPC_CPP_PLUGIN = grpc_cpp_plugin
