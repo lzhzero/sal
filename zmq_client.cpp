@@ -23,8 +23,8 @@ int main ()
 	//boost chrono timer
         boost::chrono::steady_clock::time_point start = boost::chrono::steady_clock::now();
         for (int request_nbr = 0; request_nbr != 100000; request_nbr++) {
-            zmq::message_t request (15);
-            memcpy (request.data (), exps[i].c_str(), 15);
+            zmq::message_t request (exps[i].size());
+            memcpy (request.data (), exps[i].c_str(), exps[i].size());
 //            std::cout << "Sending " << "ZF zf_10m.bin" << "…" << std::endl;
             socket.send (request);
 
@@ -35,7 +35,7 @@ int main ()
 //          std::cout << "Received " << replyMessage << std::endl;
 //           std::cout << "Received" << std::endl;
         }
-        std::cout << exps[i]  << " time is: "<< boost::chrono::steady_clock::now()-start << std::endl;
+        std::cout << exps[i]  << " time is: "<< boost::chrono::duration_cast<boost::chrono::milliseconds>(boost::chrono::steady_clock::now()-start)/100000.0 << std::endl;
     }
     return 0;
 }

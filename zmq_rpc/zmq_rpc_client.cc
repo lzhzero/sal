@@ -25,13 +25,16 @@ int main(int argc, char** argv) {
 //    zmq::message_t reply;
     for (int request_nbr = 0; request_nbr != 10000; request_nbr++) {
       std::string fname(exps[i]);
-      zmq::message_t request (exps[i].size());
-      memcpy(request.data(), exps[i].c_str(),exps[i].size());
+      zmq::message_t request (30);
+      memcpy(request.data(), exps[i].c_str(),30);
+//      zmq::message_t request (exps[i].size());
+//      memcpy(request.data(), exps[i].c_str(),exps[i].size());
+//      std::cout<<static_cast<char*>(request.data())<<std::endl;
       zmq::message_t reply;
       socket.send(request);
       socket.recv(&reply);
     }
-    std::cout << exps[i]  << " time is: "<< boost::chrono::steady_clock::now()-start << std::endl;
+    std::cout << exps[i]  << " time is: "<< boost::chrono::duration_cast<boost::chrono::milliseconds>(boost::chrono::steady_clock::now()-start)/10000.0 << std::endl;
   }
   return 0;
 }

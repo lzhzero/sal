@@ -49,9 +49,10 @@ void ZmqMode() {
   while (true) {
     zmq::message_t request;
     socket.recv(&request);
-    std::string s(static_cast<char*>(request.data()), request.size());
+//    std::string s(static_cast<char*>(request.data()), request.size());
 //    std::cout<< s  << std::endl;
-    zero_file(s.c_str());    
+    zero_file(std::string(static_cast<char*>(request.data()), request.size()).c_str());
+//    zero_file(s.c_str());    
     zmq::message_t reply (2);
     memcpy(reply.data(), "OK",2);
     socket.send(reply);
