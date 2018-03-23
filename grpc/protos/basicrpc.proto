@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.sal.examples.basicrpc";
+option java_outer_classname = "BasicRpcProto";
+option objc_class_prefix = "BASIC";
+
+package basicrpc;
+
+// The greeting service definition.
+service Executor {
+  // Sends a greeting
+  rpc ZeroFile (ZeroRequest) returns (ZeroReply) {}
+  rpc GeneralRequest (Request) returns (Reply) {}
+}
+
+// The request message containing the user's name.
+message ZeroRequest {
+  string fname = 1;
+  string operation = 2;
+}
+
+message ZeroReply {
+  string message = 1;
+}
+
+message Request {
+  string message = 1;
+}
+
+message Reply {
+  string message = 1;
+}
